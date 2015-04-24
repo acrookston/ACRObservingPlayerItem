@@ -1,18 +1,18 @@
 //
-//  ObservingPlayerItem.m
+//  ACRObservingPlayerItem.m
 //
 //  Created by Andrew Crookston on 9/30/14.
 //  Copyright (c) 2014 Andrew Crookston. All rights reserved.
 //  Released under MIT License.
 //
 
-#import "ObservingPlayerItem.h"
+#import "ACRObservingPlayerItem.h"
 
 static NSString *const kStatusKeyPath = @"status";
 
-@implementation ObservingPlayerItem
+@implementation ACRObservingPlayerItem
 
-- (void)setDelegate:(id<ObservingPlayerItemDelegate>)delegate {
+- (void)setDelegate:(id<ACRObservingPlayerItemDelegate>)delegate {
     if (delegate != nil) {
         [self removeObservers];
     }

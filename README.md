@@ -1,4 +1,4 @@
-# ObservingPlayerItem
+# ACRObservingPlayerItem
 
 #### Why?
 
@@ -15,7 +15,7 @@ Copy the .m and .h files into your project.
 Add the delegate to your class/controller:
 
 ```objc
-@interface YourViewController () <ObservingPlayerItemDelegate>
+@interface YourViewController () <ACRObservingPlayerItemDelegate>
 @end
 ```
 
@@ -32,7 +32,7 @@ Then implement the desired delegate methods (all optional):
 Create the player item and assign the delegate:
 
 ```objc
-ObservingPlayerItem *playerItem = [[ObservingPlayerItem alloc] initWithAsset:self.videoAsset];
+ACRObservingPlayerItem *playerItem = [[ACRObservingPlayerItem alloc] initWithAsset:self.videoAsset];
 playerItem.delegate = self;
 ```
 
