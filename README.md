@@ -2,15 +2,30 @@
 
 #### Why?
 
-Because I was having problem removing a KVO observation on AVPlayerItem when it randomly got deallocated in a UITableView.
+I was getting a lot of crash reports with deallocated AVPlayerItem's while a KVO was still active.
+It was hard to manually remove the KVO when the AVPlayerItem was randomly deallocated from inside a UITableViewCell.
 
 #### What?
 
-A simple wrapper class for AVPlayerItem which handles the observing of some common playback events.
+ACRObservingPlayerItem is a simple wrapper class for AVPlayerItem which handles the observing of some common playback events and safely releases the KVO on deallocation.
+
 
 #### How?
 
-Copy the .m and .h files into your project.
+Install with Cocoapods
+
+```ruby
+pod "ACRObservingPlayerItem"
+```
+
+Or copy the .m and .h files into your project.
+
+
+Import the header file in your desired view.
+
+```objc
+#import "ObservingPlayerItem.h"
+```
 
 Add the delegate to your class/controller:
 
@@ -51,8 +66,12 @@ However you may want to nil the delegate to avoid any memory leaks.
 MIT
 
 
-#### Bugs!
+#### Bugs?
 
 There may be some. I wrote this late at night but it seems to be doing the trick for me.
 
 Submit an issue or pull-request. Please. I don't like doing bug fixes over email or Github messages.
+
+#### Thanks?
+
+Let me know if you find this library helpful. I'm [@acr](http://twitter.com/acr) on Twitter or ping me here on Github.
