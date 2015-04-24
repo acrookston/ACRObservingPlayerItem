@@ -14,17 +14,14 @@ static NSString *const kStatusKeyPath = @"status";
 
 - (void)setDelegate:(id<ObservingPlayerItemDelegate>)delegate {
     if (delegate != nil) {
-        _delegate = delegate;
-        [self addObservers];
-    } else {
         [self removeObservers];
-        _delegate = delegate;
     }
+    _delegate = delegate;
+    [self addObservers];
 }
 
 - (void)dealloc {
     [self removeObservers];
-    _delegate = nil;
 }
 
 - (void)addObservers {
@@ -41,7 +38,7 @@ static NSString *const kStatusKeyPath = @"status";
 }
 
 - (void)removeObservers {
-    if (self.delegate != nil) {
+    if (self.delegate) {
         [self removeObserver:self forKeyPath:kStatusKeyPath context:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:AVPlayerItemDidPlayToEndTimeNotification
@@ -53,6 +50,7 @@ static NSString *const kStatusKeyPath = @"status";
         if ([self.delegate respondsToSelector:@selector(playerItemRemovedObservation)]) {
             [self.delegate playerItemRemovedObservation];
         }
+        _delegate = nil;
     }
 }
 
