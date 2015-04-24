@@ -24,7 +24,7 @@ Or copy the .m and .h files into your project.
 Import the header file in your desired view.
 
 ```objc
-#import "ObservingPlayerItem.h"
+#import "ACRObservingPlayerItem.h"
 ```
 
 Add the delegate to your class/controller:
