@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "ACRObservingPlayerItem"
-  s.version          = "1.0.0"
+  s.version          = "1.1.0"
   s.summary          = "An AVPlayerItem subclass which helps with handling video playback key-value observation."
   s.description      = <<-DESC
     I was getting a lot of crashreports with deallocated AVPlayerItem's while a KVO was still active.

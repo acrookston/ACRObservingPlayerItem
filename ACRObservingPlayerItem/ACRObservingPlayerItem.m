@@ -10,12 +10,14 @@
 
 static NSString *const kStatusKeyPath = @"status";
 
+@interface ACRObservingPlayerItem()
+@property (nonatomic) BOOL currentlyObserving;
+@end
+
 @implementation ACRObservingPlayerItem
 
 - (void)setDelegate:(id<ACRObservingPlayerItemDelegate>)delegate {
-    if (delegate != nil) {
-        [self removeObservers];
-    }
+    [self removeObservers];
     _delegate = delegate;
     [self addObservers];
 }
@@ -35,10 +37,11 @@ static NSString *const kStatusKeyPath = @"status";
                                              selector:@selector(playerItemStalled:)
                                                  name:AVPlayerItemPlaybackStalledNotification
                                                object:self];
+    self.currentlyObserving = YES;
 }
 
 - (void)removeObservers {
-    if (self.delegate) {
+    if (self.currentlyObserving) {
         [self removeObserver:self forKeyPath:kStatusKeyPath context:nil];
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:AVPlayerItemDidPlayToEndTimeNotification
@@ -47,10 +50,11 @@ static NSString *const kStatusKeyPath = @"status";
         [[NSNotificationCenter defaultCenter] removeObserver:self
                                                         name:AVPlayerItemPlaybackStalledNotification
                                                       object:self];
-        if ([self.delegate respondsToSelector:@selector(playerItemRemovedObservation)]) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(playerItemRemovedObservation)]) {
             [self.delegate playerItemRemovedObservation];
+            _delegate = nil;
         }
-        _delegate = nil;
+        self.currentlyObserving = NO;
     }
 }
 

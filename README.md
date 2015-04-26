@@ -20,6 +20,7 @@ pod "ACRObservingPlayerItem"
 
 Or copy the .m and .h files into your project.
 
+##### Objective-C
 
 Import the header file in your desired view.
 
@@ -51,15 +52,64 @@ ACRObservingPlayerItem *playerItem = [[ACRObservingPlayerItem alloc] initWithAss
 playerItem.delegate = self;
 ```
 
-Don't worry about the deallocation of the object. The object will attempt to call `playerItemRemovedObservation` when observers are removed or the object is deallocated (I'm unsure how reliable the latter case is).
+If the object is deallocated/deinit it will attempt to call `playerItemRemovedObservation` on the delegate.
 
-However you may want to nil the delegate to avoid any memory leaks.
+The entire point of the object is to automatically release the KVO when deallocated/deinit but to be safe you should nil out the delegate when your view or delegate is removed:
 
 ```objc
 - (void)dealloc {
     playerItem.delegate = nil;
+    // or
+    playerItem = nil;
 }
 ```
+
+##### Swift
+
+Version 1.1 was changed to support Swift through an Obj-C Bridging-Header file. Read this excellent tutorial to get started with Swift and Cocoapods: [Cocoapods with Swift](https://medium.com/@jigarm/cocoapods-with-swift-93bd373a7111)
+
+In your bridging header put:
+
+```objc
+#import "ACRObservingPlayerItem.h"
+```
+
+Full Swift example:
+
+```swift
+import UIKit
+import AVFoundation
+
+class VideoPlayerController: UIViewController, ACRObservingPlayerItemDelegate {
+  var playerItem : ACRObservingPlayerItem?
+
+  init {
+    self.playerItem = ACRObservingPlayerItem(asset: self.video)
+    self.playerItem!.delegate = self
+  }
+
+  deinit {
+      playerItem?.delegate = nil
+      // or
+      playerItem = nil
+  }
+
+  // MARK: ACRObservingPlayerItemDelegate
+
+  func playerItemReachedEnd() {
+      // rewind and play?
+  }
+
+  func playerItemReadyToPlay() {
+    // play!
+  }
+
+  func playerItemPlayFailed() { }
+  func playerItemStalled() { }
+  func playerItemRemovedObservation() { }
+}
+```
+
 
 #### License?
 
