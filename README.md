@@ -12,7 +12,7 @@ ACRObservingPlayerItem is a simple wrapper class for AVPlayerItem which handles 
 
 #### How?
 
-Install with Cocoapods
+Install with CocoaPods
 
 ```ruby
 pod "ACRObservingPlayerItem"
@@ -66,7 +66,7 @@ The entire point of the object is to automatically release the KVO when dealloca
 
 ##### Swift
 
-Version 1.1 was changed to support Swift through an Obj-C Bridging-Header file. Read this excellent tutorial to get started with Swift and Cocoapods: [Cocoapods with Swift](https://medium.com/@jigarm/cocoapods-with-swift-93bd373a7111)
+Version 1.1 was changed to support Swift through an Obj-C Bridging-Header file. Read this excellent tutorial to get started with Swift and CocoaPods: [CocoaPods with Swift](https://medium.com/@jigarm/cocoapods-with-swift-93bd373a7111)
 
 In your bridging header put:
 
